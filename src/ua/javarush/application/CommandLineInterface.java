@@ -17,13 +17,11 @@ public class CommandLineInterface {
     }
 
     private void start() {
-
         System.out.println(Constans.MSG_GREETINGS);
         inputPathToFile();
         inputEncryptOption();
         if(encryptOption != 3)inputKey();
         getNewEncryptedDecryptedFile();
-
     }
 
     private void getNewEncryptedDecryptedFile(){
@@ -52,7 +50,6 @@ public class CommandLineInterface {
                 System.out.println(Constans.ERROR_FILE_EXIST);
                 System.out.println(Constans.MSG_PATH_LABEL_AGAIN);
                 pathToFile = scanner.nextLine();
-
             }
         } catch (Exception e) {
             System.out.println(Constans.ERROR_FILE_EXIST );
@@ -63,19 +60,16 @@ public class CommandLineInterface {
     private void inputEncryptOption() {
         try {
             System.out.println(Constans.MSG_COMMAND);
-
             encryptOption = Integer.parseInt(scanner.nextLine());
 
             while (encryptOption != 1 && encryptOption != 2 && encryptOption != 3) {
                 System.out.println(Constans.ERROR_OPTION_WRONG);
                 encryptOption = Integer.parseInt(scanner.nextLine());
             }
-
         } catch (NumberFormatException e) {
             System.out.println(Constans.ERROR_NUM_FORMAT);
             inputEncryptOption();
         }
-
     }
 
     private void inputKey() {

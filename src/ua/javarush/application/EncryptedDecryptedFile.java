@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EncryptedDecryptedFile {
-    private EncryptionCommandTypes type;
+    private EncryptionCommandTypes encryptionCommandType;
     private int key;
     private final String pathToFile;
 
@@ -18,7 +18,7 @@ public class EncryptedDecryptedFile {
 
     EncryptedDecryptedFile(String pathToFile, EncryptionCommandTypes type, int key) {
         this.pathToFile = pathToFile;
-        this.type = type;
+        this.encryptionCommandType = type;
         this.key = key;
     }
 
@@ -26,14 +26,16 @@ public class EncryptedDecryptedFile {
 
         List<String> inputText = FileService.readFile(pathToFile);
         List<String> outputText = new ArrayList<>();
-        for (String inputTextLine : inputText) outputText.add(EncryptionService.getEncryptedOrDecryptedText(inputTextLine, type, key));
+        for (String inputTextLine : inputText) {
+            outputText.add(EncryptionService.getEncryptedOrDecryptedText(inputTextLine, encryptionCommandType, key));
+        }
 
-        if (type == EncryptionCommandTypes.ENCRYPT)
+        if (encryptionCommandType == EncryptionCommandTypes.ENCRYPT)
             if(FileService.writeNewFile((FileService.getNewFileName(pathToFile, "[ENCRYPTED]")), outputText)){
                 System.out.println(Constans.MSG_SUCCESSFULLY);
             }else System.out.println(Constans.ERROR_UNSUCCESSFULLY);
 
-        if (type == EncryptionCommandTypes.DECRYPT)
+        if (encryptionCommandType == EncryptionCommandTypes.DECRYPT)
             if(FileService.writeNewFile((FileService.getNewFileName(pathToFile, "[DECRYPTED]")), outputText)){
                 System.out.println(Constans.MSG_SUCCESSFULLY);
             }else System.out.println(Constans.ERROR_UNSUCCESSFULLY);
@@ -50,7 +52,9 @@ public class EncryptedDecryptedFile {
 
         key = EncryptionService.findKeyByBruteForce(textToBruteForce);
 
-        for (String inputTextLine : inputText) outputText.add(EncryptionService.getEncryptedOrDecryptedText(inputTextLine, EncryptionCommandTypes.DECRYPT, key));
+        for (String inputTextLine : inputText) {
+            outputText.add(EncryptionService.getEncryptedOrDecryptedText(inputTextLine, EncryptionCommandTypes.DECRYPT, key));
+        }
         if(FileService.writeNewFile((FileService.getNewFileName(pathToFile, "[DECRYPTED][key  " + key+ "]")), outputText)) {
             System.out.println(Constans.MSG_SUCCESSFULLY);
         }else System.out.println(Constans.ERROR_UNSUCCESSFULLY);

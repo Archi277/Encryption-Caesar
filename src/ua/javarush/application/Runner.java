@@ -21,22 +21,21 @@ public class Runner {
         else if (args.length == 2 && args[0].equals(EncryptionCommandTypes.BRUTE_FORCE.toString())) bruteForceMode();
         else if (args.length == 2) System.out.println(Constans.ERROR_MISSED_PARAMETER);
         else if (args.length == 3) {
-            if (checkStringPath()) {
+            if (checkPathToFile()) {
                 if (checkKey()) {
-                    checkCommandAndEncryptFile();
+                    checkEncryptionCommandType();
                 } else System.out.println(Constans.ERROR_UNSUCCESSFULLY);
             }
         }
     }
 
     private void bruteForceMode() {
-        checkStringPath();
+        checkPathToFile();
         EncryptedDecryptedFile file = new EncryptedDecryptedFile(args[1]);
         file.bruteForcingFile();
-
     }
 
-    private void checkCommandAndEncryptFile () {
+    private void checkEncryptionCommandType() {
 
         if (args[0].equals(EncryptionCommandTypes.BRUTE_FORCE.toString())) bruteForceMode();
 
@@ -48,24 +47,20 @@ public class Runner {
             EncryptedDecryptedFile file = new EncryptedDecryptedFile(args[1],EncryptionCommandTypes.DECRYPT, key);
             file.EncryptOrDecryptFile();
         }
-
         else System.out.println(Constans.ERROR_NOT_EXIST_COMMAND);
     }
-
-
 
     private boolean checkKey () {
         try {
             key = Integer.parseInt(args[2]);
             return true;
-
         } catch (NumberFormatException e) {
             System.out.println(Constans.ERROR_NUM_FORMAT);
             return false;
         }
     }
 
-    private boolean checkStringPath () {
+    private boolean checkPathToFile() {
 
         if (!Files.exists(Path.of(args[1]))) {
             System.out.println(Constans.ERROR_FILE_EXIST);
