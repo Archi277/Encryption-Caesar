@@ -1,4 +1,7 @@
-package ua.javarush.basic_functions;
+package ua.javarush.encryption;
+
+import ua.javarush.constans.Constans;
+import ua.javarush.constans.EncryptionCommandTypes;
 
 import java.util.List;
 

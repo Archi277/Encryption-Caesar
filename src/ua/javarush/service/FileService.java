@@ -1,4 +1,8 @@
-package ua.javarush.basic_functions;
+package ua.javarush.service;
+
+import ua.javarush.constans.Constans;
+import ua.javarush.constans.EncryptionCommandTypes;
+import ua.javarush.encryption.Encryption;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

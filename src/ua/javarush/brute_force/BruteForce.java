@@ -1,4 +1,8 @@
-package ua.javarush.basic_functions;
+package ua.javarush.brute_force;
+
+import ua.javarush.service.FileService;
+import ua.javarush.constans.EncryptionCommandTypes;
+import ua.javarush.encryption.Encryption;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -1,4 +1,4 @@
-package ua.javarush.basic_functions;
+package ua.javarush.constans;
 
 import java.util.Arrays;
 import java.util.List;
