@@ -1,15 +1,12 @@
 package ua.javarush.service;
 
 import ua.javarush.constans.Constans;
-import ua.javarush.constans.EncryptionCommandTypes;
-import ua.javarush.encryption.Encryption;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
 import java.util.List;
 
 public class FileService {
@@ -18,37 +15,34 @@ public class FileService {
         int dotIndex = oldFileName.lastIndexOf(".");
         return oldFileName.substring(0, dotIndex) + suffix + oldFileName.substring(dotIndex);
     }
-
-    public static boolean getNewEncryptedFile(String stringPath, EncryptionCommandTypes type, int key) {
-
+    public static List<String> readFile(String stringPath){
         try {
             Path pathToInputFile = Path.of(stringPath);
             if (!Files.exists(pathToInputFile)) throw new FileNotFoundException();
-
-            List<String> inputText = Files.readAllLines(pathToInputFile);
-            List<String> outputText = new ArrayList<>();
-
-            for (String inputTextLine : inputText) outputText.add(Encryption.getEncryptOrDecryptText(inputTextLine, type, key));
-
-            if (type == EncryptionCommandTypes.ENCRYPT)writeNewFile((FileService.getNewFileName(stringPath, "[ENCRYPTED]")), outputText);
-            if (type == EncryptionCommandTypes.DECRYPT)writeNewFile((FileService.getNewFileName(stringPath, "[DECRYPTED]")), outputText);
-
-            return true;
+            return Files.readAllLines(pathToInputFile);
 
         } catch (FileNotFoundException e) {
             System.out.println(Constans.ERROR_FILE_EXIST);
-            return false;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
 
-    public static void writeNewFile(String stringPath, List<String> outputText) throws IOException {
+    public static boolean writeNewFile(String stringPath, List<String> outputText) {
 
-        if (!Files.exists(Path.of(stringPath))) Files.write(Path.of(stringPath), outputText, StandardOpenOption.CREATE_NEW);
-        else {
-            Files.delete(Path.of(stringPath));
-            Files.write(Path.of(stringPath), outputText, StandardOpenOption.CREATE_NEW);
+        try {
+            if (!Files.exists(Path.of(stringPath))) {
+                Files.write(Path.of(stringPath), outputText, StandardOpenOption.CREATE_NEW);
+            }
+            else {
+                Files.delete(Path.of(stringPath));
+                Files.write(Path.of(stringPath), outputText, StandardOpenOption.CREATE_NEW);
+            }
+            return true;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+
     }
 }
