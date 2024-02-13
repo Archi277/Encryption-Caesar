@@ -15,7 +15,7 @@ public class Constans {
     public static final String MSG_SUCCESSFULLY         = "Successfully";
     public static final String MSG_GREETINGS            = "This program will help you encrypt/decrypt text files.";
     public static final String MSG_PATH_LABEL           = "Enter the path to the file to be encrypted/decrypted:";
-    public static final String MSG_COMMAND              = "Press 1: to encrypt the file\r\n\t\t  2: To decrypt the file\r\n\t\t  3: BRUTE-FORCE";
+    public static final String MSG_COMMAND              = "Press \t1: to encrypt the file\r\n\t\t2: To decrypt the file\r\n\t\t3: BRUTE-FORCE";
     public static final String MSG_KEY_LABEL            = "Enter the key with which you want to encrypt/decrypt the file. Whole number: ";
     public static final String MSG_PATH_LABEL_AGAIN     = "Enter the file path again:";
 

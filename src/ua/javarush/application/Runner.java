@@ -18,26 +18,27 @@ public class Runner {
     }
     public void start(String[] args) {
         if (args.length == 0 || args.length == 1) new CommandLineInterface();
-        else if (args.length == 2 && args[0].equals(EncryptionCommandTypes.BRUTE_FORCE.toString())) bruteForceMode();
+        else if (args.length == 2 && args[0].equals(EncryptionCommandTypes.BRUTE_FORCE.toString())) bruteForcingFile();
         else if (args.length == 2) System.out.println(Constans.ERROR_MISSED_PARAMETER);
         else if (args.length == 3) {
             if (checkPathToFile()) {
                 if (checkKey()) {
                     checkEncryptionCommandType();
                 } else System.out.println(Constans.ERROR_UNSUCCESSFULLY);
-            }
+            }else System.out.println(Constans.ERROR_UNSUCCESSFULLY);
         }
     }
 
-    private void bruteForceMode() {
+    private void bruteForcingFile() {
         checkPathToFile();
+
         EncryptedDecryptedFile file = new EncryptedDecryptedFile(args[1]);
         file.bruteForcingFile();
     }
 
     private void checkEncryptionCommandType() {
 
-        if (args[0].equals(EncryptionCommandTypes.BRUTE_FORCE.toString())) bruteForceMode();
+        if (args[0].equals(EncryptionCommandTypes.BRUTE_FORCE.toString())) bruteForcingFile();
 
         else if (args[0].equals(EncryptionCommandTypes.ENCRYPT.toString())){
             EncryptedDecryptedFile file = new EncryptedDecryptedFile(args[1],EncryptionCommandTypes.ENCRYPT, key);

@@ -26,8 +26,8 @@ public class EncryptedDecryptedFile {
 
         List<String> inputText = FileService.readFile(pathToFile);
         List<String> outputText = new ArrayList<>();
-        for (String inputTextLine : inputText) {
-            outputText.add(EncryptionService.getEncryptedOrDecryptedText(inputTextLine, encryptionCommandType, key));
+        for (String stringFromInputText : inputText) {
+            outputText.add(EncryptionService.getEncryptedOrDecryptedText(stringFromInputText, encryptionCommandType, key));
         }
 
         if (encryptionCommandType == EncryptionCommandTypes.ENCRYPT)
@@ -52,8 +52,8 @@ public class EncryptedDecryptedFile {
 
         key = EncryptionService.findKeyByBruteForce(textToBruteForce);
 
-        for (String inputTextLine : inputText) {
-            outputText.add(EncryptionService.getEncryptedOrDecryptedText(inputTextLine, EncryptionCommandTypes.DECRYPT, key));
+        for (String stringFromInputText : inputText) {
+            outputText.add(EncryptionService.getEncryptedOrDecryptedText(stringFromInputText, EncryptionCommandTypes.DECRYPT, key));
         }
         if(FileService.writeNewFile((FileService.getNewFileName(pathToFile, "[DECRYPTED][key  " + key+ "]")), outputText)) {
             System.out.println(Constans.MSG_SUCCESSFULLY);
