@@ -1,4 +1,4 @@
-package ua.javarush.application;
+package ua.javarush.encryption;
 
 import ua.javarush.constans.Constans;
 import ua.javarush.constans.EncryptionCommandTypes;
@@ -22,7 +22,7 @@ public class EncryptedDecryptedFile {
         this.key = key;
     }
 
-    public void EncryptOrDecryptFile() {
+    public void encryptOrDecryptFile() {
 
         List<String> inputText = FileService.readFile(pathToFile);
         List<String> outputText = new ArrayList<>();
@@ -33,12 +33,16 @@ public class EncryptedDecryptedFile {
         if (encryptionCommandType == EncryptionCommandTypes.ENCRYPT)
             if(FileService.writeNewFile((FileService.getNewFileName(pathToFile, "[ENCRYPTED]")), outputText)){
                 System.out.println(Constans.MSG_SUCCESSFULLY);
-            }else System.out.println(Constans.ERROR_UNSUCCESSFULLY);
+            }else {
+                System.out.println(Constans.ERROR_UNSUCCESSFULLY);
+            }
 
         if (encryptionCommandType == EncryptionCommandTypes.DECRYPT)
             if(FileService.writeNewFile((FileService.getNewFileName(pathToFile, "[DECRYPTED]")), outputText)){
                 System.out.println(Constans.MSG_SUCCESSFULLY);
-            }else System.out.println(Constans.ERROR_UNSUCCESSFULLY);
+            }else {
+                System.out.println(Constans.ERROR_UNSUCCESSFULLY);
+            }
     }
 
     public void bruteForcingFile (){
@@ -57,6 +61,9 @@ public class EncryptedDecryptedFile {
         }
         if(FileService.writeNewFile((FileService.getNewFileName(pathToFile, "[DECRYPTED][key  " + key+ "]")), outputText)) {
             System.out.println(Constans.MSG_SUCCESSFULLY);
-        }else System.out.println(Constans.ERROR_UNSUCCESSFULLY);
+        }else {
+            System.out.println(Constans.ERROR_UNSUCCESSFULLY);
+        }
     }
 }
+

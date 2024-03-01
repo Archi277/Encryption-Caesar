@@ -5,30 +5,7 @@ import ua.javarush.constans.EncryptionCommandTypes;
 import java.util.List;
 
 public class EncryptionService {
-    private static final int minTextLengthForCheckAlphabet = 50;
-
-    private static int normalizeKey(int key, List<Character> alphabet) {
-        int newKey = Math.abs(key);
-        if (newKey > alphabet.size()) return (newKey % alphabet.size());
-        else if (newKey == alphabet.size()) return 0;
-        else return newKey;
-    }
-
-    private static int getNewPosition(int readLetterPosition, int key, EncryptionCommandTypes status, List<Character> alphabet) {
-
-        if (status == EncryptionCommandTypes.ENCRYPT) {
-            int newPosition = readLetterPosition + key;
-            if (newPosition >= alphabet.size()) return newPosition - alphabet.size();
-            return newPosition;
-        }
-        if (status == EncryptionCommandTypes.DECRYPT) {
-            int newPosition = readLetterPosition - key;
-            if (newPosition < 0) return alphabet.size() - Math.abs(newPosition);
-            return newPosition;
-        }
-        return readLetterPosition;
-    }
-
+    private static final int MIN_TEXT_LENGTH_GOT_CHECK_ALPHABET = 50;
 
     public static String getEncryptedOrDecryptedText(String text, EncryptionCommandTypes type, int key) {
 
@@ -59,7 +36,7 @@ public class EncryptionService {
      */
     public static List<Character> checkAlphabet(String text) {
 
-        int textLengthForChecking = Math.min(minTextLengthForCheckAlphabet, text.length());
+        int textLengthForChecking = Math.min(MIN_TEXT_LENGTH_GOT_CHECK_ALPHABET, text.length());
 
         for(List<Character> alphabet : Constans.listOfAlphabet) {
             int letterCounter = 0;
@@ -100,5 +77,27 @@ public class EncryptionService {
             if(text.charAt(i)==',' && text.charAt(i+1) == ' ') counter++;
         }
         return counter;
+    }
+
+    private static int normalizeKey(int key, List<Character> alphabet) {
+        int newKey = Math.abs(key);
+        if (newKey > alphabet.size()) return (newKey % alphabet.size());
+        else if (newKey == alphabet.size()) return 0;
+        else return newKey;
+    }
+
+    private static int getNewPosition(int readLetterPosition, int key, EncryptionCommandTypes status, List<Character> alphabet) {
+
+        if (status == EncryptionCommandTypes.ENCRYPT) {
+            int newPosition = readLetterPosition + key;
+            if (newPosition >= alphabet.size()) return newPosition - alphabet.size();
+            return newPosition;
+        }
+        if (status == EncryptionCommandTypes.DECRYPT) {
+            int newPosition = readLetterPosition - key;
+            if (newPosition < 0) return alphabet.size() - Math.abs(newPosition);
+            return newPosition;
+        }
+        return readLetterPosition;
     }
 }

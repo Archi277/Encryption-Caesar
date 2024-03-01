@@ -1,4 +1,4 @@
-package ua.javarush.application;
+package ua.javarush.encryption;
 
 import ua.javarush.constans.Constans;
 import ua.javarush.constans.EncryptionCommandTypes;
@@ -29,11 +29,11 @@ public class CommandLineInterface {
         switch (encryptOption){
             case 1 -> {
                 EncryptedDecryptedFile file = new EncryptedDecryptedFile(pathToFile,EncryptionCommandTypes.ENCRYPT, key);
-                file.EncryptOrDecryptFile();
+                file.encryptOrDecryptFile();
             }
             case 2 -> {
                 EncryptedDecryptedFile file = new EncryptedDecryptedFile(pathToFile,EncryptionCommandTypes.DECRYPT, key);
-                file.EncryptOrDecryptFile();
+                file.encryptOrDecryptFile();
             }
             case 3 -> {
                 EncryptedDecryptedFile file = new EncryptedDecryptedFile(pathToFile);

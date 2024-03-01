@@ -1,4 +1,4 @@
-package ua.javarush.application;
+package ua.javarush.encryption;
 
 import ua.javarush.constans.Constans;
 import ua.javarush.constans.EncryptionCommandTypes;
@@ -6,52 +6,44 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class Runner {
-    private final String[] args;
     private int key;
 
-    Runner(String[] args) {
-        this.args = args;
-        start(this.args);
-    }
-    public static void main(String[] args)  {
-        new Runner(args);
-    }
     public void start(String[] args) {
         if (args.length == 0 || args.length == 1) new CommandLineInterface();
-        else if (args.length == 2 && args[0].equals(EncryptionCommandTypes.BRUTE_FORCE.toString())) bruteForcingFile();
+        else if (args.length == 2 && args[0].equals(EncryptionCommandTypes.BRUTE_FORCE.toString())) bruteForcingFile(args);
         else if (args.length == 2) System.out.println(Constans.ERROR_MISSED_PARAMETER);
         else if (args.length == 3) {
-            if (checkPathToFile()) {
-                if (checkKey()) {
-                    checkEncryptionCommandType();
+            if (checkPathToFile(args)) {
+                if (checkKey(args)) {
+                    checkEncryptionCommandType(args);
                 } else System.out.println(Constans.ERROR_UNSUCCESSFULLY);
             }else System.out.println(Constans.ERROR_UNSUCCESSFULLY);
         }
     }
 
-    private void bruteForcingFile() {
-        checkPathToFile();
+    private void bruteForcingFile(String[] args) {
+        checkPathToFile(args);
 
         EncryptedDecryptedFile file = new EncryptedDecryptedFile(args[1]);
         file.bruteForcingFile();
     }
 
-    private void checkEncryptionCommandType() {
+    private void checkEncryptionCommandType(String[] args) {
 
-        if (args[0].equals(EncryptionCommandTypes.BRUTE_FORCE.toString())) bruteForcingFile();
+        if (args[0].equals(EncryptionCommandTypes.BRUTE_FORCE.toString())) bruteForcingFile(args);
 
         else if (args[0].equals(EncryptionCommandTypes.ENCRYPT.toString())){
             EncryptedDecryptedFile file = new EncryptedDecryptedFile(args[1],EncryptionCommandTypes.ENCRYPT, key);
-            file.EncryptOrDecryptFile();
+            file.encryptOrDecryptFile();
         }
         else if (args[0].equals(EncryptionCommandTypes.DECRYPT.toString())){
             EncryptedDecryptedFile file = new EncryptedDecryptedFile(args[1],EncryptionCommandTypes.DECRYPT, key);
-            file.EncryptOrDecryptFile();
+            file.encryptOrDecryptFile();
         }
         else System.out.println(Constans.ERROR_NOT_EXIST_COMMAND);
     }
 
-    private boolean checkKey () {
+    private boolean checkKey (String[] args) {
         try {
             key = Integer.parseInt(args[2]);
             return true;
@@ -61,7 +53,7 @@ public class Runner {
         }
     }
 
-    private boolean checkPathToFile() {
+    private boolean checkPathToFile(String[] args) {
 
         if (!Files.exists(Path.of(args[1]))) {
             System.out.println(Constans.ERROR_FILE_EXIST);
