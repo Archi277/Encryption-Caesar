@@ -5,3 +5,4 @@ public enum EncryptionCommandTypes {
     DECRYPT,
     BRUTE_FORCE
 }
+

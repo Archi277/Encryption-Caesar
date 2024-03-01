@@ -30,3 +30,4 @@ public class Constans {
     public static final List<List<Character>> listOfAlphabet = Arrays.asList(ENGLISH_ALPHABET, UKRAINE_ALPHABET);
     public static final List<Character> alphabetByDefault = ENGLISH_ALPHABET;
 }
+
