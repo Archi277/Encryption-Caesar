@@ -15,6 +15,7 @@ public class FileService {
         int dotIndex = oldFileName.lastIndexOf(".");
         return oldFileName.substring(0, dotIndex) + suffix + oldFileName.substring(dotIndex);
     }
+
     public static List<String> readFile(String stringPath){
         try {
             Path pathToInputFile = Path.of(stringPath);
